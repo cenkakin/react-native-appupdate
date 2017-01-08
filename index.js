@@ -40,7 +40,9 @@ class AppUpdate {
   getApkVersionSuccess(remote) {
     console.log("getApkVersionSuccess", remote);
     if (RNAppUpdate.versionName !== remote.versionName) {
-      if (this.options.needUpdateApp) {
+      if (remote.forceUpdate) {
+        this.downloadApk(remote);
+      } else if (this.options.needUpdateApp) {
         this.options.needUpdateApp((isUpdate) => {
           if (isUpdate) {
             this.downloadApk(remote);
@@ -48,7 +50,7 @@ class AppUpdate {
         });
       }
     } else {
-        this.options.notNeedUpdateApp()
+      this.options.notNeedUpdateApp()
     }
   }
 
@@ -64,7 +66,14 @@ class AppUpdate {
     const progressDivider = 1;
     const downloadDestPath = `${RNFS.DocumentDirectoryPath}/NewApp.apk`;
 
-    const ret = RNFS.downloadFile({ fromUrl: remote.apkUrl, toFile: downloadDestPath, begin, progress, background: true, progressDivider });
+    const ret = RNFS.downloadFile({
+      fromUrl: remote.apkUrl,
+      toFile: downloadDestPath,
+      begin,
+      progress,
+      background: true,
+      progressDivider
+    });
 
     jobId = ret.jobId;
 
@@ -86,7 +95,7 @@ class AppUpdate {
       console.log("iosAppId doesn't exist.");
       return;
     }
-    this.GET("https://itunes.apple.com/lookup?id="+this.options.iosAppId, this.getAppStoreVersionSuccess.bind(this), this.getVersionError.bind(this));
+    this.GET("https://itunes.apple.com/lookup?id=" + this.options.iosAppId, this.getAppStoreVersionSuccess.bind(this), this.getVersionError.bind(this));
   }
 
   getAppStoreVersionSuccess(data) {
