@@ -41,6 +41,9 @@ class AppUpdate {
     console.log("getApkVersionSuccess", remote);
     if (RNAppUpdate.versionName !== remote.versionName) {
       if (remote.forceUpdate) {
+        if(this.options.forceUpdateApp) {
+          this.options.forceUpdateApp();
+        }
         this.downloadApk(remote);
       } else if (this.options.needUpdateApp) {
         this.options.needUpdateApp((isUpdate) => {
