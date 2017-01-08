@@ -47,6 +47,8 @@ class AppUpdate {
           }
         });
       }
+    } else {
+        this.options.notNeedUpdateApp()
     }
   }
 
@@ -103,7 +105,7 @@ class AppUpdate {
           }
         });
       }
-    }else {
+    } else {
       this.options.notNeedUpdateApp()
     }
   }
