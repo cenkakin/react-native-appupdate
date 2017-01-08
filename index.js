@@ -103,6 +103,8 @@ class AppUpdate {
           }
         });
       }
+    }else {
+      this.options.notNeedUpdateApp()
     }
   }
 
