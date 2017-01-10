@@ -52,11 +52,9 @@ class AppUpdate {
           }
         });
       }
-    } else {
-      if(this.options.notNeedUpdateApp) {
+    } else if(this.options.notNeedUpdateApp) {
         this.options.notNeedUpdateApp();
       }
-    }
   }
 
   downloadApk(remote) {
@@ -119,8 +117,8 @@ class AppUpdate {
           }
         });
       }
-    } else {
-      this.options.notNeedUpdateApp()
+    } else if(this.options.notNeedUpdateApp) {
+      this.options.notNeedUpdateApp();
     }
   }
 
