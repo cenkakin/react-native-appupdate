@@ -53,7 +53,9 @@ class AppUpdate {
         });
       }
     } else {
-      this.options.notNeedUpdateApp()
+      if(this.options.notNeedUpdateApp) {
+        this.options.notNeedUpdateApp();
+      }
     }
   }
 
